@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-import { LoginComponent } from "./login/login.component";
-import { WelcomeComponent } from "./welcome/welcome.component";
-import { ErrorComponent } from "./error/error.component";
+import { RouterOutlet } from '@angular/router';
+import { LogoutComponent } from "./logout/logout.component";
+import { FooterComponent } from "./footer/footer.component";
+import { MenuComponent } from "./menu/menu.component";
+import { ListToDosComponent } from "./list-to-dos/list-to-dos.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [LoginComponent, WelcomeComponent, ErrorComponent],
+  imports: [RouterOutlet, LogoutComponent, FooterComponent, MenuComponent, ListToDosComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
