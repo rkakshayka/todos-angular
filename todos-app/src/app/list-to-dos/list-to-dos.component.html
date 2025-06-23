@@ -1,1 +1,24 @@
-<p>list-to-dos works!</p>
+<h1>My ToDo's</h1>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Target Date</th>
+                <th>Is Completed?</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- in Java - for(ToDo todos : todos) -->
+            <!-- ngFor - to loopover todos and creating variable todo -->
+            <tr *ngFor="let todo of todos">
+                <!-- using interpolation -->
+                <td>{{todo.id}}</td>
+                <td>{{todo.description | lowercase}}</td>
+                <td>{{todo.targetDate | date:'dd-MM-yyyy' | uppercase}}</td>
+                <td>{{todo.isDone}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
