@@ -2,6 +2,9 @@ import { Routes } from '@angular/router';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { LoginComponent } from './login/login.component';
 import { ErrorComponent } from './error/error.component';
+import { ListToDosComponent } from './list-to-dos/list-to-dos.component';
+import { LogoutComponent } from './logout/logout.component';
+import { routeGuard } from './service/route-guard.service';
 
 export const routes: Routes = [
 
@@ -11,8 +14,9 @@ export const routes: Routes = [
 
     
     { path: 'login', component: LoginComponent },
-    { path: 'welcome/:name', component: WelcomeComponent },
-
+    { path: 'welcome/:name', component: WelcomeComponent, canActivate: [routeGuard] },
+    { path: 'todos', component: ListToDosComponent, canActivate: [routeGuard] },
+    { path: 'logout', component: LogoutComponent, canActivate: [routeGuard] },
 
     // wildcard route for a 404 page - always should be the last route in the array
     { path: '**', component: ErrorComponent },

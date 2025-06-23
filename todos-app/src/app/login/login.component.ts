@@ -2,6 +2,7 @@ import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HardcodedAuthenticationService } from '../service/hardcoded-authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -10,30 +11,38 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
+
 export class LoginComponent implements OnInit {
 
-  username  = 'akshay'
+  username = 'akshay'
   password = ''
-  inValidLogin = false
   errorMessage = 'Invalid Credentials'
+  invalidLogin = false
 
-  constructor(private routes : Router) { }
-  
-  handleLogin() {
-    console.log(this.username);
-    //console.log(this.password);
-    if(this.username === 'akshay' && this.password === 'dummy') {
-      // redirect to welcome page - so will be needing an instance of routes
-      this.routes.navigate(['welcome', this.username])
-      this.inValidLogin = false;
-    }
-    else {
-      this.inValidLogin = true;
-    }
-  }
+  // Router - is a dependency of the LoginComponent
+  // Angular.giveMeRouter() will be done by dependency injection
+  // to get that dependency we have declare it as construor argument.
+  constructor(
+    private hardcodedAuthenticationService : HardcodedAuthenticationService,
+    private router : Router
+  ) { }        
 
   ngOnInit() {
+    
+  }
 
+  handleLogin() {
+    //if(this.username === 'akshay' && this.password === 'dummy') {
+    if(this.hardcodedAuthenticationService.authenticate(this.username, this.password)) { 
+      // redirect to welcome page -so will be needing an instance of routes
+      this.router.navigate(['welcome', this.username])
+      this.invalidLogin =false
+
+    } else {
+      this.invalidLogin = true
+    } 
   }
 
 }
+// Note: The `handleLogin` method checks the credentials using the `HardcodedAuthenticationService`.
+// If the credentials are valid, it navigates to the welcome page with the username as a route parameter.
