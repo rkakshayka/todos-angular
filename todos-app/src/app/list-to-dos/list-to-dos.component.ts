@@ -1,5 +1,6 @@
 import { DatePipe, LowerCasePipe, NgFor, NgIf, UpperCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { TodosDataService } from '../service/data/todos-data.service';
 
 //Future
 /*
@@ -32,19 +33,7 @@ export class ToDo {
 export class ListToDosComponent implements OnInit {
 
   // we want to create a list of todos so an array is needed
-  todos = [
-    // this data is structured
-    new ToDo(1, 'Learn to Dance', new Date(), false),
-    new ToDo(2, 'Learn to Swim', new Date(), false),
-    new ToDo(3, 'Learn to Fly', new Date(), false)
-    
-    // this is basically unstructured data format
-    /*
-    { id: 1, description: 'Learn to Dance', targetDate: new Date(), isDone: false },
-    { id: 2, description: 'Learn to Swim', targetDate: new Date(), isDone: false },
-    { id: 3, description: 'Learn to Fly', targetDate: new Date(), isDone: false }
-    */
-  ]
+  todos: ToDo[] = [];
 
   // SIngle todo
   // todo = {
@@ -54,9 +43,18 @@ export class ListToDosComponent implements OnInit {
   //   isDone: false
   // }
 
-  constructor() { }
+  constructor(
+    private todoService: TodosDataService
+  ) { }
 
   ngOnInit() {
+    this.todoService.retrieveAllTodos('akshay').subscribe(
+      response => {
+        console.log(response);
+        this.todos = response;
+        console.log(this.todos);
+      }
+    )
   }
 
 }
